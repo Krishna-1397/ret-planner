@@ -1,0 +1,1401 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Retirement Planning Website</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f7f9fc;
+            color: #333;
+        }
+        header {
+            background-color: #0056b3;
+            color: #fff;
+            padding: 10px 0;
+            text-align: center;
+        }
+        nav {
+            background-color: #004085;
+            display: flex;
+            justify-content: center;
+            padding: 10px 0;
+        }
+        nav a {
+            color: #fff;
+            text-decoration: none;
+            margin: 0 15px;
+            font-size: 18px;
+        }
+        nav a:hover {
+            text-decoration: underline;
+        }
+        main {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+        }
+        h1 {
+            color: #0056b3;
+        }
+        h2 {
+            color: #004085;
+            margin-top: 20px;
+        }
+        table {
+            border-collapse: collapse;
+            width: 90%;
+            margin: 20px 0;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: center;
+        }
+        th {
+            background-color: #e9ecef;
+            color: #333;
+        }
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        tr:hover {
+            background-color: #d6e9f8;
+        }
+        .controls {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin: 20px 0;
+        }
+        .controls input {
+            padding: 8px;
+            font-size: 16px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        .controls button {
+            padding: 8px 16px;
+            font-size: 16px;
+            background-color: #0056b3;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .controls button:hover {
+            background-color: #004085;
+        }
+        footer {
+            background-color: #0056b3;
+            color: #fff;
+            padding: 10px 0;
+            text-align: center;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Retirement Planning</h1>
+    </header>
+    
+    <nav>
+        <a href="#">Home</a>
+        <a href="#">Retirement</a>
+        <a href="#">Calculator</a>
+        <a href="#">Contact</a>
+    </nav>
+
+    <main>
+        <div class="controls">
+            <label>
+                Starting Age: <input type="number" id="startAge" value="26" min="0">
+            </label>
+            <label>
+                Starting Savings: <input type="number" id="startSavings" value="0" step="1000">
+            </label>
+            <label>
+                Annual Contribution: <input type="number" id="annualContribution" value="600000" step="1000">
+            </label>
+            <button onclick="updateProjection()">Update Projection</button>
+            <label>
+                Filter Retirement Year: <input type="number" id="filterYear" placeholder="Enter year">
+            </label>
+            <button onclick="filterData()">Apply Filter</button>
+        </div>
+
+        <h2>Retirement Sheet</h2>
+        <table border="1" class="dataframe">
+  <tbody>
+    <tr>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>Manju Mastakar</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>Current Age</td>
+      <td>26</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>Retirement Age</td>
+      <td>40</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>Expenses planned until age</td>
+      <td>75</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>Current Savings Amount</td>
+      <td>0</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>Current Monthly Investments</td>
+      <td>50000</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>Current Savings - Investment Approach</td>
+      <td>Returns</td>
+      <td>Tax</td>
+      <td>Investment Proportion</td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>Fixed Returns</td>
+      <td>0.07</td>
+      <td>0.3</td>
+      <td>0.1</td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>Large Cap Mutual Funds</td>
+      <td>0.12</td>
+      <td>0.2</td>
+      <td>0.4</td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>Midcap Mutual Funds</td>
+      <td>0.15</td>
+      <td>0.2</td>
+      <td>0.2</td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>Smallcap Mutual Funds</td>
+      <td>0.18</td>
+      <td>0.2</td>
+      <td>0.3</td>
+      <td>Average Tax %</td>
+      <td>Weighted Avg Return</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td>1</td>
+      <td>0.21</td>
+      <td>0.139</td>
+    </tr>
+    <tr>
+      <td>Step-up in savings every yr</td>
+      <td>0.05</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>Post-retirement monthly amount (today's)</td>
+      <td>50000</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>Retirement Savings - Investment Approach</td>
+      <td>Returns</td>
+      <td>Tax</td>
+      <td>Invesement Proportion</td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>Fixed Returns</td>
+      <td>0.07</td>
+      <td>0.3</td>
+      <td>0</td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>Large Cap Mutual Funds</td>
+      <td>0.12</td>
+      <td>0.2</td>
+      <td>1</td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>Midcap Mutual Funds</td>
+      <td>0.15</td>
+      <td>0.2</td>
+      <td>0</td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>Smallcap Mutual Funds</td>
+      <td>0.18</td>
+      <td>0.2</td>
+      <td>0</td>
+      <td>Average Tax %</td>
+      <td>Weighted Avg Return</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td>1</td>
+      <td>0.2</td>
+      <td>0.12</td>
+    </tr>
+    <tr>
+      <td>Inflation</td>
+      <td>0.07</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Retirement Planning Summary</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Age</td>
+      <td>Yearly Exp</td>
+      <td>Remaining Corpus</td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>40</td>
+      <td>1547120.490121</td>
+      <td>29815914.543043</td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>50</td>
+      <td>3043420.172032</td>
+      <td>45478196.85306</td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>60</td>
+      <td>5986868.122214</td>
+      <td>48545369.365514</td>
+      <td></td>
+      <td></td>
+    </tr>
+  </tbody>
+</table>
+
+        <h2>Cal Sheet</h2>
+        <div id="calTable">
+            <table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>Age</th>
+      <th>Starting Saving</th>
+      <th>Planned expenses (post-tax)</th>
+      <th>Additional expenses (post-tax)</th>
+      <th>Additional Savings</th>
+      <th>Ending Savings</th>
+      <th>Status</th>
+      <th>Retirement year</th>
+      <th>Warning</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>26</td>
+      <td>0.000000e+00</td>
+      <td>0.000000e+00</td>
+      <td></td>
+      <td>6.000000e+05</td>
+      <td>6.000000e+05</td>
+      <td>Earning</td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>27</td>
+      <td>6.000000e+05</td>
+      <td>0.000000e+00</td>
+      <td></td>
+      <td>6.300000e+05</td>
+      <td>1.313400e+06</td>
+      <td>Earning</td>
+      <td>0.0</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>28</td>
+      <td>1.313400e+06</td>
+      <td>0.000000e+00</td>
+      <td></td>
+      <td>6.615000e+05</td>
+      <td>2.157463e+06</td>
+      <td>Earning</td>
+      <td>0.0</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>29</td>
+      <td>2.157463e+06</td>
+      <td>0.000000e+00</td>
+      <td></td>
+      <td>6.945750e+05</td>
+      <td>3.151925e+06</td>
+      <td>Earning</td>
+      <td>0.0</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>30</td>
+      <td>3.151925e+06</td>
+      <td>0.000000e+00</td>
+      <td></td>
+      <td>7.293038e+05</td>
+      <td>4.319346e+06</td>
+      <td>Earning</td>
+      <td>0.0</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>31</td>
+      <td>4.319346e+06</td>
+      <td>0.000000e+00</td>
+      <td></td>
+      <td>7.657689e+05</td>
+      <td>5.685504e+06</td>
+      <td>Earning</td>
+      <td>0.0</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>32</td>
+      <td>5.685504e+06</td>
+      <td>0.000000e+00</td>
+      <td></td>
+      <td>8.040574e+05</td>
+      <td>7.279847e+06</td>
+      <td>Earning</td>
+      <td>0.0</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>33</td>
+      <td>7.279847e+06</td>
+      <td>0.000000e+00</td>
+      <td></td>
+      <td>8.442603e+05</td>
+      <td>9.136006e+06</td>
+      <td>Earning</td>
+      <td>0.0</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>34</td>
+      <td>9.136006e+06</td>
+      <td>0.000000e+00</td>
+      <td></td>
+      <td>8.864733e+05</td>
+      <td>1.129238e+07</td>
+      <td>Earning</td>
+      <td>0.0</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>35</td>
+      <td>1.129238e+07</td>
+      <td>0.000000e+00</td>
+      <td></td>
+      <td>9.307969e+05</td>
+      <td>1.379282e+07</td>
+      <td>Earning</td>
+      <td>0.0</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>36</td>
+      <td>1.379282e+07</td>
+      <td>0.000000e+00</td>
+      <td></td>
+      <td>9.773368e+05</td>
+      <td>1.668736e+07</td>
+      <td>Earning</td>
+      <td>0.0</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>37</td>
+      <td>1.668736e+07</td>
+      <td>0.000000e+00</td>
+      <td></td>
+      <td>1.026204e+06</td>
+      <td>2.003311e+07</td>
+      <td>Earning</td>
+      <td>0.0</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>38</td>
+      <td>2.003311e+07</td>
+      <td>0.000000e+00</td>
+      <td></td>
+      <td>1.077514e+06</td>
+      <td>2.389522e+07</td>
+      <td>Earning</td>
+      <td>0.0</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>39</td>
+      <td>2.389522e+07</td>
+      <td>0.000000e+00</td>
+      <td></td>
+      <td>1.131389e+06</td>
+      <td>2.834805e+07</td>
+      <td>Earning</td>
+      <td>0.0</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>40</td>
+      <td>2.834805e+07</td>
+      <td>1.547120e+06</td>
+      <td></td>
+      <td>0.000000e+00</td>
+      <td>2.981591e+07</td>
+      <td>Retired</td>
+      <td>1.0</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>41</td>
+      <td>2.981591e+07</td>
+      <td>1.655419e+06</td>
+      <td></td>
+      <td>0.000000e+00</td>
+      <td>3.132455e+07</td>
+      <td>Retired</td>
+      <td>0.0</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>42</td>
+      <td>3.132455e+07</td>
+      <td>1.771298e+06</td>
+      <td></td>
+      <td>0.000000e+00</td>
+      <td>3.286937e+07</td>
+      <td>Retired</td>
+      <td>0.0</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>43</td>
+      <td>3.286937e+07</td>
+      <td>1.895289e+06</td>
+      <td></td>
+      <td>0.000000e+00</td>
+      <td>3.444459e+07</td>
+      <td>Retired</td>
+      <td>0.0</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>44</td>
+      <td>3.444459e+07</td>
+      <td>2.027959e+06</td>
+      <td></td>
+      <td>0.000000e+00</td>
+      <td>3.604299e+07</td>
+      <td>Retired</td>
+      <td>0.0</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>45</td>
+      <td>3.604299e+07</td>
+      <td>2.169917e+06</td>
+      <td></td>
+      <td>0.000000e+00</td>
+      <td>3.765575e+07</td>
+      <td>Retired</td>
+      <td>0.0</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>46</td>
+      <td>3.765575e+07</td>
+      <td>2.321811e+06</td>
+      <td></td>
+      <td>0.000000e+00</td>
+      <td>3.927218e+07</td>
+      <td>Retired</td>
+      <td>0.0</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>47</td>
+      <td>3.927218e+07</td>
+      <td>2.484337e+06</td>
+      <td></td>
+      <td>0.000000e+00</td>
+      <td>4.087942e+07</td>
+      <td>Retired</td>
+      <td>0.0</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>48</td>
+      <td>4.087942e+07</td>
+      <td>2.658241e+06</td>
+      <td></td>
+      <td>0.000000e+00</td>
+      <td>4.246215e+07</td>
+      <td>Retired</td>
+      <td>0.0</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>49</td>
+      <td>4.246215e+07</td>
+      <td>2.844318e+06</td>
+      <td></td>
+      <td>0.000000e+00</td>
+      <td>4.400221e+07</td>
+      <td>Retired</td>
+      <td>0.0</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>50</td>
+      <td>4.400221e+07</td>
+      <td>3.043420e+06</td>
+      <td></td>
+      <td>0.000000e+00</td>
+      <td>4.547820e+07</td>
+      <td>Retired</td>
+      <td>0.0</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>51</td>
+      <td>4.547820e+07</td>
+      <td>3.256460e+06</td>
+      <td></td>
+      <td>0.000000e+00</td>
+      <td>4.686501e+07</td>
+      <td>Retired</td>
+      <td>0.0</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>52</td>
+      <td>4.686501e+07</td>
+      <td>3.484412e+06</td>
+      <td></td>
+      <td>0.000000e+00</td>
+      <td>4.813329e+07</td>
+      <td>Retired</td>
+      <td>0.0</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>53</td>
+      <td>4.813329e+07</td>
+      <td>3.728321e+06</td>
+      <td></td>
+      <td>0.000000e+00</td>
+      <td>4.924889e+07</td>
+      <td>Retired</td>
+      <td>0.0</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>54</td>
+      <td>4.924889e+07</td>
+      <td>3.989303e+06</td>
+      <td></td>
+      <td>0.000000e+00</td>
+      <td>5.017212e+07</td>
+      <td>Retired</td>
+      <td>0.0</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>55</td>
+      <td>5.017212e+07</td>
+      <td>4.268554e+06</td>
+      <td></td>
+      <td>0.000000e+00</td>
+      <td>5.085709e+07</td>
+      <td>Retired</td>
+      <td>0.0</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>56</td>
+      <td>5.085709e+07</td>
+      <td>4.567353e+06</td>
+      <td></td>
+      <td>0.000000e+00</td>
+      <td>5.125075e+07</td>
+      <td>Retired</td>
+      <td>0.0</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>57</td>
+      <td>5.125075e+07</td>
+      <td>4.887068e+06</td>
+      <td></td>
+      <td>0.000000e+00</td>
+      <td>5.129200e+07</td>
+      <td>Retired</td>
+      <td>0.0</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>58</td>
+      <td>5.129200e+07</td>
+      <td>5.229162e+06</td>
+      <td></td>
+      <td>0.000000e+00</td>
+      <td>5.091059e+07</td>
+      <td>Retired</td>
+      <td>0.0</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>59</td>
+      <td>5.091059e+07</td>
+      <td>5.595204e+06</td>
+      <td></td>
+      <td>0.000000e+00</td>
+      <td>5.002585e+07</td>
+      <td>Retired</td>
+      <td>0.0</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>60</td>
+      <td>5.002585e+07</td>
+      <td>5.986868e+06</td>
+      <td></td>
+      <td>0.000000e+00</td>
+      <td>4.854537e+07</td>
+      <td>Retired</td>
+      <td>0.0</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>61</td>
+      <td>4.854537e+07</td>
+      <td>6.405949e+06</td>
+      <td></td>
+      <td>0.000000e+00</td>
+      <td>4.636338e+07</td>
+      <td>Retired</td>
+      <td>0.0</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>62</td>
+      <td>4.636338e+07</td>
+      <td>6.854365e+06</td>
+      <td></td>
+      <td>0.000000e+00</td>
+      <td>4.335903e+07</td>
+      <td>Retired</td>
+      <td>0.0</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>63</td>
+      <td>4.335903e+07</td>
+      <td>7.334171e+06</td>
+      <td></td>
+      <td>0.000000e+00</td>
+      <td>3.939440e+07</td>
+      <td>Retired</td>
+      <td>0.0</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>64</td>
+      <td>3.939440e+07</td>
+      <td>7.847563e+06</td>
+      <td></td>
+      <td>0.000000e+00</td>
+      <td>3.431227e+07</td>
+      <td>Retired</td>
+      <td>0.0</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>65</td>
+      <td>3.431227e+07</td>
+      <td>8.396892e+06</td>
+      <td></td>
+      <td>0.000000e+00</td>
+      <td>2.793363e+07</td>
+      <td>Retired</td>
+      <td>0.0</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>66</td>
+      <td>2.793363e+07</td>
+      <td>8.984675e+06</td>
+      <td></td>
+      <td>0.000000e+00</td>
+      <td>2.005482e+07</td>
+      <td>Retired</td>
+      <td>0.0</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>67</td>
+      <td>2.005482e+07</td>
+      <td>9.613602e+06</td>
+      <td></td>
+      <td>0.000000e+00</td>
+      <td>1.044439e+07</td>
+      <td>Retired</td>
+      <td>0.0</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>68</td>
+      <td>1.044439e+07</td>
+      <td>1.028655e+07</td>
+      <td></td>
+      <td>0.000000e+00</td>
+      <td>-1.160471e+06</td>
+      <td>Retired</td>
+      <td>0.0</td>
+      <td>You have run out of money</td>
+    </tr>
+    <tr>
+      <td>69</td>
+      <td>-1.160471e+06</td>
+      <td>1.100661e+07</td>
+      <td></td>
+      <td>0.000000e+00</td>
+      <td>-1.505799e+07</td>
+      <td>Retired</td>
+      <td>0.0</td>
+      <td>You have run out of money</td>
+    </tr>
+    <tr>
+      <td>70</td>
+      <td>-1.505799e+07</td>
+      <td>1.177708e+07</td>
+      <td></td>
+      <td>0.000000e+00</td>
+      <td>-3.158630e+07</td>
+      <td>Retired</td>
+      <td>0.0</td>
+      <td>You have run out of money</td>
+    </tr>
+    <tr>
+      <td>71</td>
+      <td>-3.158630e+07</td>
+      <td>1.260147e+07</td>
+      <td></td>
+      <td>0.000000e+00</td>
+      <td>-5.112849e+07</td>
+      <td>Retired</td>
+      <td>0.0</td>
+      <td>You have run out of money</td>
+    </tr>
+    <tr>
+      <td>72</td>
+      <td>-5.112849e+07</td>
+      <td>1.348357e+07</td>
+      <td></td>
+      <td>0.000000e+00</td>
+      <td>-7.411838e+07</td>
+      <td>Retired</td>
+      <td>0.0</td>
+      <td>You have run out of money</td>
+    </tr>
+    <tr>
+      <td>73</td>
+      <td>-7.411838e+07</td>
+      <td>1.442742e+07</td>
+      <td></td>
+      <td>0.000000e+00</td>
+      <td>-1.010469e+08</td>
+      <td>Retired</td>
+      <td>0.0</td>
+      <td>You have run out of money</td>
+    </tr>
+    <tr>
+      <td>74</td>
+      <td>-1.010469e+08</td>
+      <td>1.543734e+07</td>
+      <td></td>
+      <td>0.000000e+00</td>
+      <td>-1.324692e+08</td>
+      <td>Retired</td>
+      <td>0.0</td>
+      <td>You have run out of money</td>
+    </tr>
+    <tr>
+      <td>75</td>
+      <td>-1.324692e+08</td>
+      <td>1.547120e+06</td>
+      <td></td>
+      <td>0.000000e+00</td>
+      <td>0.000000e+00</td>
+      <td>Not Req</td>
+      <td>1.0</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>76</td>
+      <td>0.000000e+00</td>
+      <td>1.655419e+06</td>
+      <td></td>
+      <td>0.000000e+00</td>
+      <td>0.000000e+00</td>
+      <td>Not Req</td>
+      <td>0.0</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>77</td>
+      <td>0.000000e+00</td>
+      <td>1.771298e+06</td>
+      <td></td>
+      <td>0.000000e+00</td>
+      <td>0.000000e+00</td>
+      <td>Not Req</td>
+      <td>0.0</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>78</td>
+      <td>0.000000e+00</td>
+      <td>1.895289e+06</td>
+      <td></td>
+      <td>0.000000e+00</td>
+      <td>0.000000e+00</td>
+      <td>Not Req</td>
+      <td>0.0</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>79</td>
+      <td>0.000000e+00</td>
+      <td>2.027959e+06</td>
+      <td></td>
+      <td>0.000000e+00</td>
+      <td>0.000000e+00</td>
+      <td>Not Req</td>
+      <td>0.0</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>80</td>
+      <td>0.000000e+00</td>
+      <td>2.169917e+06</td>
+      <td></td>
+      <td>0.000000e+00</td>
+      <td>0.000000e+00</td>
+      <td>Not Req</td>
+      <td>0.0</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>81</td>
+      <td>0.000000e+00</td>
+      <td>2.321811e+06</td>
+      <td></td>
+      <td>0.000000e+00</td>
+      <td>0.000000e+00</td>
+      <td>Not Req</td>
+      <td>0.0</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>82</td>
+      <td>0.000000e+00</td>
+      <td>2.484337e+06</td>
+      <td></td>
+      <td>0.000000e+00</td>
+      <td>0.000000e+00</td>
+      <td>Not Req</td>
+      <td>0.0</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>83</td>
+      <td>0.000000e+00</td>
+      <td>2.658241e+06</td>
+      <td></td>
+      <td>0.000000e+00</td>
+      <td>0.000000e+00</td>
+      <td>Not Req</td>
+      <td>0.0</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>84</td>
+      <td>0.000000e+00</td>
+      <td>2.844318e+06</td>
+      <td></td>
+      <td>0.000000e+00</td>
+      <td>0.000000e+00</td>
+      <td>Not Req</td>
+      <td>0.0</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>85</td>
+      <td>0.000000e+00</td>
+      <td>3.043420e+06</td>
+      <td></td>
+      <td>0.000000e+00</td>
+      <td>0.000000e+00</td>
+      <td>Not Req</td>
+      <td>0.0</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>86</td>
+      <td>0.000000e+00</td>
+      <td>3.256460e+06</td>
+      <td></td>
+      <td>0.000000e+00</td>
+      <td>0.000000e+00</td>
+      <td>Not Req</td>
+      <td>0.0</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>87</td>
+      <td>0.000000e+00</td>
+      <td>3.484412e+06</td>
+      <td></td>
+      <td>0.000000e+00</td>
+      <td>0.000000e+00</td>
+      <td>Not Req</td>
+      <td>0.0</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>88</td>
+      <td>0.000000e+00</td>
+      <td>3.728321e+06</td>
+      <td></td>
+      <td>0.000000e+00</td>
+      <td>0.000000e+00</td>
+      <td>Not Req</td>
+      <td>0.0</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>89</td>
+      <td>0.000000e+00</td>
+      <td>3.989303e+06</td>
+      <td></td>
+      <td>0.000000e+00</td>
+      <td>0.000000e+00</td>
+      <td>Not Req</td>
+      <td>0.0</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>90</td>
+      <td>0.000000e+00</td>
+      <td>4.268554e+06</td>
+      <td></td>
+      <td>0.000000e+00</td>
+      <td>0.000000e+00</td>
+      <td>Not Req</td>
+      <td>0.0</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>91</td>
+      <td>0.000000e+00</td>
+      <td>4.567353e+06</td>
+      <td></td>
+      <td>0.000000e+00</td>
+      <td>0.000000e+00</td>
+      <td>Not Req</td>
+      <td>0.0</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>92</td>
+      <td>0.000000e+00</td>
+      <td>4.887068e+06</td>
+      <td></td>
+      <td>0.000000e+00</td>
+      <td>0.000000e+00</td>
+      <td>Not Req</td>
+      <td>0.0</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>93</td>
+      <td>0.000000e+00</td>
+      <td>5.229162e+06</td>
+      <td></td>
+      <td>0.000000e+00</td>
+      <td>0.000000e+00</td>
+      <td>Not Req</td>
+      <td>0.0</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>94</td>
+      <td>0.000000e+00</td>
+      <td>5.595204e+06</td>
+      <td></td>
+      <td>0.000000e+00</td>
+      <td>0.000000e+00</td>
+      <td>Not Req</td>
+      <td>0.0</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>95</td>
+      <td>0.000000e+00</td>
+      <td>5.986868e+06</td>
+      <td></td>
+      <td>0.000000e+00</td>
+      <td>0.000000e+00</td>
+      <td>Not Req</td>
+      <td>0.0</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>96</td>
+      <td>0.000000e+00</td>
+      <td>6.405949e+06</td>
+      <td></td>
+      <td>0.000000e+00</td>
+      <td>0.000000e+00</td>
+      <td>Not Req</td>
+      <td>0.0</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>97</td>
+      <td>0.000000e+00</td>
+      <td>6.854365e+06</td>
+      <td></td>
+      <td>0.000000e+00</td>
+      <td>0.000000e+00</td>
+      <td>Not Req</td>
+      <td>0.0</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>98</td>
+      <td>0.000000e+00</td>
+      <td>7.334171e+06</td>
+      <td></td>
+      <td>0.000000e+00</td>
+      <td>0.000000e+00</td>
+      <td>Not Req</td>
+      <td>0.0</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>99</td>
+      <td>0.000000e+00</td>
+      <td>7.847563e+06</td>
+      <td></td>
+      <td>0.000000e+00</td>
+      <td>0.000000e+00</td>
+      <td>Not Req</td>
+      <td>0.0</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>100</td>
+      <td>0.000000e+00</td>
+      <td>8.396892e+06</td>
+      <td></td>
+      <td>0.000000e+00</td>
+      <td>0.000000e+00</td>
+      <td>Not Req</td>
+      <td>0.0</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>101</td>
+      <td>0.000000e+00</td>
+      <td>8.984675e+06</td>
+      <td></td>
+      <td>0.000000e+00</td>
+      <td>0.000000e+00</td>
+      <td>Not Req</td>
+      <td>0.0</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>102</td>
+      <td>0.000000e+00</td>
+      <td>9.613602e+06</td>
+      <td></td>
+      <td>0.000000e+00</td>
+      <td>0.000000e+00</td>
+      <td>Not Req</td>
+      <td>0.0</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>103</td>
+      <td>0.000000e+00</td>
+      <td>1.028655e+07</td>
+      <td></td>
+      <td>0.000000e+00</td>
+      <td>0.000000e+00</td>
+      <td>Not Req</td>
+      <td>0.0</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>104</td>
+      <td>0.000000e+00</td>
+      <td>1.100661e+07</td>
+      <td></td>
+      <td>0.000000e+00</td>
+      <td>0.000000e+00</td>
+      <td>Not Req</td>
+      <td>0.0</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>105</td>
+      <td>0.000000e+00</td>
+      <td>1.177708e+07</td>
+      <td></td>
+      <td>0.000000e+00</td>
+      <td>0.000000e+00</td>
+      <td>Not Req</td>
+      <td>0.0</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>106</td>
+      <td>0.000000e+00</td>
+      <td>1.260147e+07</td>
+      <td></td>
+      <td>0.000000e+00</td>
+      <td>0.000000e+00</td>
+      <td>Not Req</td>
+      <td>0.0</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>107</td>
+      <td>0.000000e+00</td>
+      <td>1.348357e+07</td>
+      <td></td>
+      <td>0.000000e+00</td>
+      <td>0.000000e+00</td>
+      <td>Not Req</td>
+      <td>0.0</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>108</td>
+      <td>0.000000e+00</td>
+      <td>1.442742e+07</td>
+      <td></td>
+      <td>0.000000e+00</td>
+      <td>0.000000e+00</td>
+      <td>Not Req</td>
+      <td>0.0</td>
+      <td></td>
+    </tr>
+  </tbody>
+</table>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Retirement Planning. All rights reserved.</p>
+    </footer>
+
+    <script>
+        function updateProjection() {
+            let startAge = parseInt(document.getElementById('startAge').value);
+            let startSavings = parseFloat(document.getElementById('startSavings').value);
+            let annualContribution = parseFloat(document.getElementById('annualContribution').value);
+
+            let calTable = document.getElementById('calTable');
+            let rows = calTable.getElementsByTagName('tr');
+            
+            for (let i = 1; i < rows.length; i++) {
+                let ageCell = rows[i].cells[0];
+                let savingsCell = rows[i].cells[1];
+                let contributionCell = rows[i].cells[5];
+                let endingSavingsCell = rows[i].cells[6];
+
+                let age = startAge + (i - 1);
+                let endingSavings = startSavings + (i - 1) * annualContribution;
+
+                ageCell.innerHTML = age;
+                contributionCell.innerHTML = annualContribution.toFixed(2);
+                endingSavingsCell.innerHTML = endingSavings.toFixed(2);
+            }
+        }
+
+        function filterData() {
+            let filterYear = document.getElementById('filterYear').value;
+            let calTable = document.getElementById('calTable');
+            let rows = calTable.getElementsByTagName('tr');
+
+            for (let i = 1; i < rows.length; i++) {
+                let retirementYearCell = rows[i].cells[7];
+                if (filterYear && retirementYearCell.innerHTML !== filterYear) {
+                    rows[i].style.display = 'none';
+                } else {
+                    rows[i].style.display = '';
+                }
+            }
+        }
+    </script>
+
+</body>
+</html>
